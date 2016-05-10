@@ -9,41 +9,60 @@
 
 #include "Effect.h"
 
+namespace effect {
 
-class LightEffect : public cocos2d::Ref
-{
-public:
-    static LightEffect* create();
-    
-    void setLightPos(const cocos2d::Vec3& pos);
-    void setLightColor(const cocos2d::Color3B& color);
+    class LightEffect : public cocos2d::Ref {
+    public:
+        static LightEffect *create();
 
-    void setBrightness(float value);
-    void setLightCutoffRadius(float value);
-    void setLightHalfRadius(float value);
+        void setLightPos(const cocos2d::Vec3 &pos);
 
-    cocos2d::Color3B getLightColor() const { return _lightColor; }
-    float getLightCutoffRadius(){return  _lightCutoffRadius;}
-    float getLightHalfRadius(){return _lightHalfRadius;}
-    float getBrightness(){return _brightness;}
-    cocos2d::Vec3 getLightPos(){return _lightPos;}
-    
-    LightEffect(){}
-    ~LightEffect(){
- 
-    }
-protected:
-    bool init();
+        void setLightColor(const cocos2d::Color3B &color);
 
-    cocos2d::Vec3 _lightPos;
-    cocos2d::Color3B _lightColor;
+        void setBrightness(float value);
 
-    float _lightCutoffRadius;
-    float _lightHalfRadius;
-    float _brightness;
+        void setLightCutoffRadius(float value);
 
-    
-   
-};
+        void setLightHalfRadius(float value);
 
+        cocos2d::Color3B getLightColor() const {
+            return _lightColor;
+        }
+
+        float getLightCutoffRadius() {
+            return _lightCutoffRadius;
+        }
+
+        float getLightHalfRadius() {
+            return _lightHalfRadius;
+        }
+
+        float getBrightness() {
+            return _brightness;
+        }
+
+        cocos2d::Vec3 getLightPos() {
+            return _lightPos;
+        }
+
+        LightEffect() {
+        }
+
+        ~LightEffect() {
+
+        }
+
+    protected:
+        bool init();
+
+        cocos2d::Vec3 _lightPos;
+        cocos2d::Color3B _lightColor;
+
+        float _lightCutoffRadius;
+        float _lightHalfRadius;
+        float _brightness;
+
+
+    };
+}
 #endif

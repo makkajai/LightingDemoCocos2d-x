@@ -9,23 +9,27 @@
 
 
 #include "cocos2d.h"
+namespace effect {
 
 
-class Effect : public cocos2d::Ref
-{
-public:
-    cocos2d::GLProgramState* getGLProgramState() const { return _glprogramstate; }
- 
-    Effect();
-  virtual  ~Effect();
-protected:
-    bool initGLProgramState(const std::string &fragmentFilename);
+    class Effect : public cocos2d::Ref {
+    public:
+        cocos2d::GLProgramState *getGLProgramState() const {
+            return _glprogramstate;
+        }
 
-    cocos2d::GLProgramState* _glprogramstate;
+        Effect();
+
+        virtual  ~Effect();
+
+    protected:
+        bool initGLProgramState(const std::string &fragmentFilename);
+
+        cocos2d::GLProgramState *_glprogramstate;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WP8 || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-    std::string _fragSource;
-    cocos2d::EventListenerCustom* _backgroundListener;
+        std::string _fragSource;
+        cocos2d::EventListenerCustom* _backgroundListener;
 #endif
-};
-
+    };
+}
 #endif
