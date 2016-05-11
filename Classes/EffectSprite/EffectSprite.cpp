@@ -91,8 +91,9 @@ namespace effect {
         }
 
         Sprite::draw(renderer, transform, flags);
-        renderer->render();
-
+        if (_effectHolder != nullptr && _effectsArray.size() > 0) {
+            renderer->render();
+        }
     }
 
     EffectSprite::~EffectSprite() {
