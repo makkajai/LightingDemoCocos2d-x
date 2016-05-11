@@ -65,8 +65,8 @@ namespace effect {
                                         source->getPosition().y, source->getLocalZOrder()));
                                 lightEffect->setLightCutoffRadius(source->getCutoffRadius());
                                 lightEffect->setLightHalfRadius(source->getHalfRadius());
-                                lightEffect->setBrightness(source->getIntensity());
-                                lightEffect->setLightColor(source->getColor());
+                                lightEffect->setBrightness(source->getIntensity() > 0? source->getIntensity() : source->getAmbientIntensity());
+                                lightEffect->setLightColor(source->getIntensity() > 0? source->getColor() : source->getAmbientColor());
 
                                 parentSprite->addEffect(lightEffect);
                                 break;
