@@ -103,6 +103,14 @@ namespace effect {
         CC_SAFE_RELEASE(_effectHolder);
 
     }
+
+    void EffectSprite::enableOrDisableEffectOnAllChildren(bool isEnabled) {
+#ifdef TODO_PORT_FIX
+#endif
+
+    }
+
+
 /*remove
 
  sprite->setGLProgramState(
