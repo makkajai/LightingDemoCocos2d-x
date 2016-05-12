@@ -27,12 +27,19 @@ namespace effect {
 
     void LightEffectNode::onEnter() {
         Node::onEnter();
+        this->runAction(RepeatForever::create(Sequence::createWithTwoActions(
+                MoveTo::create(10, cocos2d::Vec2(0, 0)), MoveTo::create(10, cocos2d::Vec2(100, 500)))));
+        
         this->scheduleUpdate();
     }
 
 
     void LightEffectNode::update(float delta) {
         Node::update(delta);
+        if(this->getLightEffects()->count() > 0) {
+            LightEffect *lightEffect = dynamic_cast<LightEffect *>(this->getLightEffects()->getObjectAtIndex(0));
+            lightEffect->setLightPos(Vec3(this->getPosition().x, this->getPosition().y, 100));
+        }
 
         if(!this->getIsLightEffectAlreadyApplied()) {
             EffectSprite *parentSprite = dynamic_cast<effect::EffectSprite *>(this->getParent());
@@ -57,6 +64,12 @@ namespace effect {
                                 if(!lightgroup->isEqual(group))
                                     continue;
 
+                                if(source->getAmbientIntensity() > 0.0f) {
+                                    const Color3B &aColor = source->getAmbientColor();
+                                    float aIntensity = source->getAmbientIntensity();
+                                    ambientLight = Color3B(aColor.r * aIntensity, aColor.g * aIntensity, aColor.b * aIntensity);
+                                }
+
                                 if(!this->getNormalFileName()) {
                                     parentSprite->setColor(source->getAmbientColor());
                                     break;
@@ -65,7 +78,7 @@ namespace effect {
                                 Vec2 position = source->getPosition();
                                 float cutoffRadius = source->getCutoffRadius();
                                 float halfRadius = source->getHalfRadius();
-                                float brightness = source->getBrightness() > 0? source->getBrightness() : source->getAmbientBrightness();
+                                float brightness = source->getIntensity() > 0? source->getBrightness() : source->getAmbientBrightness();
                                 Color3B lightColor = source->getIntensity() > 0? source->getColor() : source->getAmbientColor();
 
                                 lightEffect->setLightPos(Vec3(position.x, position.y, source->getLocalZOrder()));
@@ -79,11 +92,6 @@ namespace effect {
                                 break;
 
                         }
-                }
-                if(source->getAmbientIntensity() > 0.0f) {
-                    const Color3B &aColor = source->getAmbientColor();
-                    float aIntensity = source->getAmbientIntensity();
-                    ambientLight = Color3B(aColor.r * aIntensity, aColor.g * aIntensity, aColor.b * aIntensity);
                 }
             }
             if(this->getNormalFileName())
