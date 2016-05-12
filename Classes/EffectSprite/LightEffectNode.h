@@ -28,6 +28,7 @@ namespace effect {
 
 
         CC_SYNTHESIZE_RETAIN(__Array *, groups, Groups);
+        CC_SYNTHESIZE_RETAIN(__Array *, lightEffects, LightEffects);
         CC_SYNTHESIZE(Color4F, specularColor, SpecularColor);
         CC_SYNTHESIZE(float, shininess, Shininess);
         CC_SYNTHESIZE(bool, isLightEffectAlreadyApplied, IsLightEffectAlreadyApplied);
@@ -35,9 +36,6 @@ namespace effect {
         static LightEffectNode *createWithGroupsSpecularColorShininess(__String *normalFileName, __Array *groups, Color4F specularColor, float shininess);
 
         CREATE_FUNC(LightEffectNode);
-
-
-        effect::LightEffect *lightEffect;
     };
 }
 #endif

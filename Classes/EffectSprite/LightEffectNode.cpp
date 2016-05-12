@@ -20,6 +20,7 @@ namespace effect {
         node->setGroups(groups);
         node->setSpecularColor(specularColor);
         node->setShininess(shininess);
+        node->setLightEffects(__Array::create());
         return node;
     }
 
@@ -60,8 +61,7 @@ namespace effect {
                                     parentSprite->setColor(source->getAmbientColor());
                                     break;
                                 }
-                                lightEffect = LightEffect::create();
-                                lightEffect->retain();
+                                LightEffect *lightEffect = LightEffect::create();
                                 Vec2 position = source->getPosition();
                                 float cutoffRadius = source->getCutoffRadius();
                                 float halfRadius = source->getHalfRadius();
@@ -75,6 +75,7 @@ namespace effect {
                                 lightEffect->setLightColor(lightColor);
 
                                 parentSprite->addEffect(lightEffect);
+                                this->getLightEffects()->addObject(lightEffect);
                                 break;
 
                         }
@@ -92,7 +93,7 @@ namespace effect {
     }
 
     void LightEffectNode::onExit() {
-        CC_SAFE_RELEASE_NULL(lightEffect);
+        CC_SAFE_RELEASE_NULL(lightEffects);
         Node::onExit();
     }
 }
