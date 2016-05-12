@@ -27,9 +27,6 @@ namespace effect {
 
     void LightEffectNode::onEnter() {
         Node::onEnter();
-        this->runAction(RepeatForever::create(Sequence::createWithTwoActions(
-                MoveTo::create(10, cocos2d::Vec2(0, 0)), MoveTo::create(10, cocos2d::Vec2(100, 500)))));
-        
         this->scheduleUpdate();
     }
 
@@ -71,7 +68,7 @@ namespace effect {
                                 }
 
                                 if(!this->getNormalFileName()) {
-                                    parentSprite->setColor(source->getAmbientColor());
+                                    parentSprite->setColor(ambientLight);
                                     break;
                                 }
                                 LightEffect *lightEffect = LightEffect::create();
@@ -97,6 +94,7 @@ namespace effect {
             if(this->getNormalFileName())
                 parentSprite->initLampWithSpriteFrameName(this->getNormalFileName()->getCString(), ambientLight);
             this->setIsLightEffectAlreadyApplied(true);
+            this->unscheduleUpdate();
         }
     }
 
