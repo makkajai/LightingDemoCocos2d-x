@@ -8,6 +8,7 @@
 #define _LIGHTEFFECTNODE_H_
 
 #include "Effect.h"
+#include "LightEffect.h"
 USING_NS_CC;
 
 namespace effect {
@@ -16,6 +17,9 @@ namespace effect {
 
     public:
         CC_SYNTHESIZE_RETAIN(__String *, normalFileName, NormalFileName)
+
+        virtual void onExit() override;
+
 
         virtual void onEnter() override;
 
@@ -33,6 +37,7 @@ namespace effect {
         CREATE_FUNC(LightEffectNode);
 
 
+        effect::LightEffect *lightEffect;
     };
 }
 #endif

@@ -32,7 +32,8 @@ namespace effect {
                     lightCutoffRadius[idx] = ef->getLightCutoffRadius();
                     lightHalfRadius[idx] = ef->getLightHalfRadius();
 
-                    Point posRelToSprite = PointApplyAffineTransform(Point(ef->getLightPos().x, ef->getLightPos().y), sprite->getWorldToNodeAffineTransform());
+                    Point posRelToSprite = PointApplyAffineTransform(Point(ef->getLightPos().x, ef->getLightPos().y),
+                            sprite->getWorldToNodeAffineTransform());
                     _lightPos[idx] = Vec3(posRelToSprite.x, posRelToSprite.y, ef->getLightPos().z);
 
 
@@ -107,8 +108,12 @@ namespace effect {
         for (auto &ef : _effectsArray) {
 
             if (ef != nullptr) {
+
+                //NOTE: removing the below code since its messing up the entire lighting as our screen scrolls.
+#ifdef TODO_PORT_FIX
                 Point posRelToSprite = PointApplyAffineTransform(Point(ef->getLightPos().x, ef->getLightPos().y), _sprite->getWorldToNodeAffineTransform());
                 _lightPos[idx] = Vec3(posRelToSprite.x, posRelToSprite.y, ef->getLightPos().z);
+#endif
                 brightness[idx] = ef->getBrightness();
 
             }

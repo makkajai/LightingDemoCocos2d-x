@@ -60,13 +60,19 @@ namespace effect {
                                     parentSprite->setColor(source->getAmbientColor());
                                     break;
                                 }
-                                LightEffect *lightEffect = LightEffect::create();
-                                lightEffect->setLightPos(Vec3(source->getPosition().x,
-                                        source->getPosition().y, source->getLocalZOrder()));
-                                lightEffect->setLightCutoffRadius(source->getCutoffRadius());
-                                lightEffect->setLightHalfRadius(source->getHalfRadius());
-                                lightEffect->setBrightness(source->getIntensity() > 0? source->getIntensity() : source->getAmbientIntensity());
-                                lightEffect->setLightColor(source->getIntensity() > 0? source->getColor() : source->getAmbientColor());
+                                lightEffect = LightEffect::create();
+                                lightEffect->retain();
+                                Vec2 position = source->getPosition();
+                                float cutoffRadius = source->getCutoffRadius();
+                                float halfRadius = source->getHalfRadius();
+                                float brightness = source->getBrightness() > 0? source->getBrightness() : source->getAmbientBrightness();
+                                Color3B lightColor = source->getIntensity() > 0? source->getColor() : source->getAmbientColor();
+
+                                lightEffect->setLightPos(Vec3(position.x, position.y, source->getLocalZOrder()));
+                                lightEffect->setLightCutoffRadius(cutoffRadius);
+                                lightEffect->setLightHalfRadius(halfRadius);
+                                lightEffect->setBrightness(brightness);
+                                lightEffect->setLightColor(lightColor);
 
                                 parentSprite->addEffect(lightEffect);
                                 break;
@@ -74,7 +80,9 @@ namespace effect {
                         }
                 }
                 if(source->getAmbientIntensity() > 0.0f) {
-                    ambientLight = source->getAmbientColor();
+                    const Color3B &aColor = source->getAmbientColor();
+                    float aIntensity = source->getAmbientIntensity();
+                    ambientLight = Color3B(aColor.r * aIntensity, aColor.g * aIntensity, aColor.b * aIntensity);
                 }
             }
             if(this->getNormalFileName())
@@ -83,6 +91,9 @@ namespace effect {
         }
     }
 
-
+    void LightEffectNode::onExit() {
+        CC_SAFE_RELEASE_NULL(lightEffect);
+        Node::onExit();
+    }
 }
 
