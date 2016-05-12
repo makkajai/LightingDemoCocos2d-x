@@ -33,11 +33,6 @@ namespace effect {
 
     void LightEffectNode::update(float delta) {
         Node::update(delta);
-        if(this->getLightEffects()->count() > 0) {
-            LightEffect *lightEffect = dynamic_cast<LightEffect *>(this->getLightEffects()->getObjectAtIndex(0));
-            lightEffect->setLightPos(Vec3(this->getPosition().x, this->getPosition().y, 100));
-        }
-
         if(!this->getIsLightEffectAlreadyApplied()) {
             EffectSprite *parentSprite = dynamic_cast<effect::EffectSprite *>(this->getParent());
             if(!parentSprite) return;
