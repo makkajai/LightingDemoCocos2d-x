@@ -9,6 +9,7 @@
 
 #include "Effect.h"
 #include "LightEffect.h"
+
 USING_NS_CC;
 
 namespace effect {

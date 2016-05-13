@@ -8,6 +8,7 @@
 #include "EffectSprite.h"
 #include "BaseLightSource.h"
 #include "LightEffect.h"
+#include "StringFormat.h"
 
 USING_NS_CC;
 
@@ -86,8 +87,12 @@ namespace effect {
                         }
                 }
             }
-            if(this->getNormalFileName())
-                parentSprite->initLampWithSpriteFrameName(this->getNormalFileName()->getCString(), ambientLight);
+            if(this->getNormalFileName()) {
+                if(!contains(this->getNormalFileName()->getCString(), "/"))
+                    parentSprite->initLampWithSpriteFrameName(this->getNormalFileName()->getCString(), ambientLight);
+                else
+                    parentSprite->initLamp(this->getNormalFileName()->getCString(), ambientLight);
+            }
             this->setIsLightEffectAlreadyApplied(true);
             this->unscheduleUpdate();
         }
