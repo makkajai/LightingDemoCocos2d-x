@@ -102,5 +102,12 @@ namespace effect {
         CC_SAFE_RELEASE_NULL(lightEffects);
         Node::onExit();
     }
+
+
+    LightEffectNode::~LightEffectNode() {
+        CC_SAFE_RELEASE_NULL(lightEffects);
+        CC_SAFE_RELEASE_NULL(normalFileName);
+        CC_SAFE_RELEASE_NULL(groups);
+    }
 }
 

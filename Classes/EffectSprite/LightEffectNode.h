@@ -19,6 +19,9 @@ namespace effect {
     public:
         CC_SYNTHESIZE_RETAIN(__String *, normalFileName, NormalFileName)
 
+        virtual ~LightEffectNode() override;
+
+
         virtual void onExit() override;
 
 
