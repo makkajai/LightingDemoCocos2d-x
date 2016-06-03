@@ -34,6 +34,7 @@ namespace effect {
 
     void LightEffectNode::update(float delta) {
         Node::update(delta);
+//        return;
         if(!this->getIsLightEffectAlreadyApplied()) {
             EffectSprite *parentSprite = dynamic_cast<effect::EffectSprite *>(this->getParent());
             if(!parentSprite) return;
