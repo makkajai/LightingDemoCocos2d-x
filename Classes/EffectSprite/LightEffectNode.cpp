@@ -42,7 +42,6 @@ namespace effect {
             std::vector<BaseLight *> lights = Director::getInstance()->getRunningScene()->getLights();
             if(lights.size() == 0) return ;
 
-            CCLOGWARN("#########Got the on NEter: %d", lights.size());
             Color3B ambientLight = Color3B::WHITE;
             for(BaseLight *light : lights) {
                 BaseLightSource *source = dynamic_cast<BaseLightSource *>(light);
