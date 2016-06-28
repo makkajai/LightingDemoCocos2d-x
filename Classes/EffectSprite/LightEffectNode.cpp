@@ -15,13 +15,14 @@ USING_NS_CC;
 namespace effect {
 
     effect::LightEffectNode *effect::LightEffectNode::createWithGroupsSpecularColorShininess(__String *normalFileName,
-            __Array *groups, Color4F specularColor, float shininess) {
+            __Array *groups, Color4F specularColor, float shininess, bool isLightsEnabled) {
         effect::LightEffectNode *node = effect::LightEffectNode::create();
         node->setNormalFileName(normalFileName);
         node->setGroups(groups);
         node->setSpecularColor(specularColor);
         node->setShininess(shininess);
         node->setLightEffects(__Array::create());
+        node->setIsLightsEnabled(isLightsEnabled);
         return node;
     }
 
@@ -34,7 +35,9 @@ namespace effect {
 
     void LightEffectNode::update(float delta) {
         Node::update(delta);
-//        return;
+        if(!this->getIsLightsEnabled())
+            return;
+
         if(!this->getIsLightEffectAlreadyApplied()) {
             EffectSprite *parentSprite = dynamic_cast<effect::EffectSprite *>(this->getParent());
             if(!parentSprite) return;

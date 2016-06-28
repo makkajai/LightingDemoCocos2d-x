@@ -36,8 +36,10 @@ namespace effect {
         CC_SYNTHESIZE(Color4F, specularColor, SpecularColor);
         CC_SYNTHESIZE(float, shininess, Shininess);
         CC_SYNTHESIZE(bool, isLightEffectAlreadyApplied, IsLightEffectAlreadyApplied);
+        CC_SYNTHESIZE(bool, isLightsEnabled, IsLightsEnabled);
 
-        static LightEffectNode *createWithGroupsSpecularColorShininess(__String *normalFileName, __Array *groups, Color4F specularColor, float shininess);
+        static LightEffectNode *createWithGroupsSpecularColorShininess(__String *normalFileName, __Array *groups, Color4F specularColor,
+                float shininess, bool isLightsEnabled);
 
         CREATE_FUNC(LightEffectNode);
     };
